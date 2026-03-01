@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  # ── SQL Server ────────────────────────────────────────────────────────────
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: deskoasis-db
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "DeskOasis@Sql2024!"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    volumes:
+      - deskoasis-db-data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "DeskOasis@Sql2024!" -Q "SELECT 1" -b -o /dev/null
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
+
+  # ── ASP.NET Core API ──────────────────────────────────────────────────────
+  api:
+    build:
+      context: ./DeskOasis.API
+      dockerfile: Dockerfile
+    container_name: deskoasis-api
+    ports:
+      - "5000:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=db;Database=DeskOasis;User Id=SA;Password=DeskOasis@Sql2024!;TrustServerCertificate=True;"
+      Jwt__Key: "Docker_Compose_Dev_Key_Min32Chars_Change_In_Prod!"
+      Jwt__Issuer: "DeskOasis"
+      Jwt__Audience: "DeskOasis"
+      Razorpay__KeyId: "${RAZORPAY_KEY_ID:-rzp_test_placeholder}"
+      Razorpay__KeySecret: "${RAZORPAY_KEY_SECRET:-placeholder}"
+      FrontendBaseUrl: "http://localhost:5173"
+      AllowedOrigins__0: "http://localhost:5173"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ── React Frontend ────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: deskoasis-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  deskoasis-db-data:

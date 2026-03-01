@@ -1,0 +1,64 @@
+# ── .NET ──────────────────────────────────────────────────────────────────────
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.userprefs
+*.pidb
+*.sln.cache
+*.DS_Store
+Thumbs.db
+
+# ── Publish output ─────────────────────────────────────────────────────────────
+publish/
+out/
+
+# ── EF Core ───────────────────────────────────────────────────────────────────
+# Uncomment if you don't want to commit migrations:
+# **/Migrations/
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── Secrets (NEVER commit these) ─────────────────────────────────────────────
+appsettings.Production.json
+appsettings.*.local.json
+secrets.json
+.env
+.env.*
+
+# ── User Secrets ──────────────────────────────────────────────────────────────
+# .NET user secrets are stored in %APPDATA%/Microsoft/UserSecrets
+# and are never in the project folder, but just in case:
+/DeskOasis.API/appsettings.*.json
+!/DeskOasis.API/appsettings.json
+!/DeskOasis.API/appsettings.Development.json
+
+# ── Node / Frontend ───────────────────────────────────────────────────────────
+node_modules/
+dist/
+.vite/
+frontend/.env
+frontend/.env.*
+frontend/dist/
+
+# ── Test results ──────────────────────────────────────────────────────────────
+TestResults/
+coverage/
+*.trx
+*.coveragexml
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+# .dockerignore is separate
+
+# ── JetBrains ─────────────────────────────────────────────────────────────────
+.idea/
+*.iml
+
+# ── Visual Studio Code ────────────────────────────────────────────────────────
+.vscode/
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
