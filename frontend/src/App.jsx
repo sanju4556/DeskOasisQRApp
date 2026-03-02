@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext.jsx'
 import AdminLayout  from './layouts/AdminLayout.jsx'
 import LoginPage    from './pages/admin/LoginPage.jsx'
 import Dashboard    from './pages/admin/Dashboard.jsx'
+import LocationHealthDashboard from './pages/admin/LocationHealthDashboard.jsx'
 import Plants       from './pages/admin/Plants.jsx'
 import Locations    from './pages/admin/Locations.jsx'
 import Inventory    from './pages/admin/Inventory.jsx'
@@ -33,6 +34,7 @@ export default function App() {
           {/* Admin (protected) */}
           <Route path="/" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
             <Route index              element={<Dashboard />} />
+            <Route path="location-health" element={<LocationHealthDashboard />} />
             <Route path="plants"      element={<Plants />} />
             <Route path="locations"   element={<Locations />} />
             <Route path="inventory"   element={<Inventory />} />

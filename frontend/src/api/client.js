@@ -34,6 +34,7 @@ export const login = data => api.post('/auth/login', data)
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 export const getDashboard = () => api.get('/dashboard')
+export const getLocationHealthDashboard = () => api.get('/dashboard/location-health')
 
 // ── Plants ────────────────────────────────────────────────────────────────────
 export const getPlants    = (inc) => api.get('/plants', { params: { includeInactive: inc } })

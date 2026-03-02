@@ -53,4 +53,5 @@ public interface IQRService
 public interface IDashboardService
 {
     Task<DashboardDto> GetStatsAsync();
+    Task<LocationHealthDashboardDto> GetLocationHealthAsync();
 }

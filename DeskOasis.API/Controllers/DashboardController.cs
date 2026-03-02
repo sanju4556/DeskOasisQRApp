@@ -13,4 +13,9 @@ public class DashboardController(IDashboardService dashboardService) : Controlle
     [HttpGet]
     public async Task<IActionResult> Get()
         => Ok(await dashboardService.GetStatsAsync());
+
+    /// <summary>Get location-wise plant health cards with stock and sale movement signals</summary>
+    [HttpGet("location-health")]
+    public async Task<IActionResult> GetLocationHealth()
+        => Ok(await dashboardService.GetLocationHealthAsync());
 }

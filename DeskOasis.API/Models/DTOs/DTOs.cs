@@ -178,6 +178,45 @@ public class LocationRevDto  { public string LocationName { get; set; } = string
 public class PlantSalesDto   { public string PlantName    { get; set; } = string.Empty; public int Sales       { get; set; } public decimal Revenue { get; set; } }
 public class StockAlertDto   { public string PlantName    { get; set; } = string.Empty; public string LocationName { get; set; } = string.Empty; public int Qty { get; set; } public int Threshold { get; set; } }
 
+public class LocationHealthDashboardDto
+{
+    public DateTime GeneratedAtUtc   { get; set; }
+    public int      TotalLocations   { get; set; }
+    public int      TotalPlants      { get; set; }
+    public int      HealthyCount     { get; set; }
+    public int      LowCount         { get; set; }
+    public int      CriticalCount    { get; set; }
+    public int      DeadStockCount   { get; set; }
+    public List<LocationHealthCardDto> Locations { get; set; } = [];
+}
+
+public class LocationHealthCardDto
+{
+    public int      LocationId     { get; set; }
+    public string   LocationName   { get; set; } = string.Empty;
+    public int      TotalPlants    { get; set; }
+    public int      TotalUnits     { get; set; }
+    public int      HealthyCount   { get; set; }
+    public int      LowCount       { get; set; }
+    public int      CriticalCount  { get; set; }
+    public int      DeadStockCount { get; set; }
+    public List<LocationPlantLiveDto> Plants { get; set; } = [];
+}
+
+public class LocationPlantLiveDto
+{
+    public int       PlantId            { get; set; }
+    public string    PlantName          { get; set; } = string.Empty;
+    public int       QuantityAvailable  { get; set; }
+    public int       RefillThreshold    { get; set; }
+    public int       SoldLast7Days      { get; set; }
+    public DateTime? LastSoldAtUtc      { get; set; }
+    public int?      DaysSinceLastSale  { get; set; }
+    public string    Status             { get; set; } = string.Empty;
+    public string    AlertColor         { get; set; } = string.Empty;
+    public string    StatusNote         { get; set; } = string.Empty;
+}
+
 // ── Generic wrapper ───────────────────────────────────────────────────────────
 public class ApiResponse<T>
 {
